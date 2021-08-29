@@ -87,32 +87,24 @@ char *removeName(char *namesList) {
   printf("Digite um nome: ");
   scanf("%s", nameToRemove);
 
-  char *nameIndex = strstr(namesList, nameToRemove);
+  char *nameString = strstr(namesList, nameToRemove);
 
-  if (nameIndex == NULL) {
+  if (nameString == NULL) {
     printf("Nome não encontrado.\n");
     return namesList;
   }
 
-  firstCharOfNameIndex = nameIndex - namesList;
+  firstCharOfNameIndex = strlen(namesList) - strlen(nameString);
 
-  auxIndex = firstCharOfNameIndex + strlen(nameToRemove);
-  if (strstr(nameIndex, ",")) {
-    auxIndex++;
+  if (firstCharOfNameIndex != 0 && namesList[firstCharOfNameIndex - 1] == ',') {
+    firstCharOfNameIndex--;
+    nameString--;
   }
 
-  if (strchr(namesList, ',')) {
-    while (namesList[firstCharOfNameIndex] != '\0') {
-      namesList[firstCharOfNameIndex] = namesList[auxIndex];
-      auxIndex++;
-      firstCharOfNameIndex++;
+  for (int i = 0; i <= strlen(nameToRemove); i++) {
+    for (int j = 0; j < strlen(nameString); j++) {
+      namesList[firstCharOfNameIndex + j] = namesList[firstCharOfNameIndex + j + 1];
     }
-  } else {
-    strcpy(namesList, "\0");
-  }
-
-  if (strlen(namesList) > 0 && namesList[strlen(namesList) - 1] == ',') {
-    namesList[strlen(namesList) - 1] = '\0';
   }
 
   namesList = (char *)realloc(namesList, (strlen(namesList) + 1) * sizeof(char));
