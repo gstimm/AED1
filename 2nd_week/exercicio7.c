@@ -36,7 +36,7 @@ int main() {
   *(int *)(pBuffer + PEOPLE_COUNTER) = 0;
 
   while (1) {
-    menu(pBuffer);
+    menu(choice);
     switch (*choice) {
     case 1:
       insertUser(pBuffer);
