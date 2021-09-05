@@ -20,7 +20,7 @@ typedef struct {
   long int phone;
 } Pessoa;
 
-Pessoa pessoas[10];
+Pessoa pessoas[MAX_PEOPLE];
 
 int main() {
   void *pBuffer = NULL;
