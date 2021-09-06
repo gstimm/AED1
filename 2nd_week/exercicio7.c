@@ -8,7 +8,6 @@ void removeUser(void *pBuffer);
 void findByName(void *pBuffer);
 void listAll(void *pBuffer);
 
-#define OPTION 0
 #define PEOPLE_COUNTER (sizeof(int))
 #define COUNTER (sizeof(int) * 2)
 #define NAME_POSITION (sizeof(int) * 3)
@@ -32,7 +31,7 @@ int main() {
     exit(1);
   }
 
-  int *choice = &*(int *)(pBuffer + OPTION);
+  int *choice = &*(int *)(pBuffer);
   *(int *)(pBuffer + PEOPLE_COUNTER) = 0;
 
   while (1) {
