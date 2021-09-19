@@ -37,10 +37,18 @@ Entregar um vídeo explicando o código e mostrando alguns testes e ao final o r
 
 - Compile o código com `gcc nomeDoArquivo.c -o nomeDoArquivo`
 
-- Rode o executável com `.\nomeDoArquivo.exe`
+- Rode o executável com `./nomeDoArquivo`
 
 ### AUTOMÁTICA
 
 As configuações usadas no meu compilador estão na pasta `.vscode`.
 
 À princípio, dentro da pasta principal do projeto, basta estar com o arquivo .c aberto e selecionado, e pressionar **F5** que a compilação e execução são feitas automaticamente.
+
+### TESTES AUTOMATIZADOS
+
+Para executar o programa com um teste, por exemplo o que esta disponível junto ao programa, basta após a compilação, executar o comando:
+
+`./nomeDoArquivo < ../work/test.txt`
+
+É necessário ir até a pasta work para rodar o teste pois é o modo como o compilador está configurado na pasta .vscode.
