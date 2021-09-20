@@ -111,10 +111,10 @@ void SORT(void *pBuffer, void *person) {
   while (auxPerson != NULL) {
     if (strcmp((char *)(person + NAME), (char *)(auxPerson + NAME)) >= 0) {
       if (*(void **)(auxPerson + NEXT) == NULL) {
-        *(void **)(person + PREVIOUS) = *(void **)(pBuffer + pLast);
-        void *auxPerson = *(void **)(pBuffer + pLast);
+        *(void **)(person + PREVIOUS) = auxPerson;
+        void *tempPerson = *(void **)(pBuffer + pLast);
         *(void **)(pBuffer + pLast) = person;
-        *(void **)(auxPerson + NEXT) = person;
+        *(void **)(tempPerson + NEXT) = person;
 
         return;
       } else {
