@@ -108,33 +108,32 @@ void SORT(void *pBuffer, void *person) {
     return;
   }
 
-  do {
-    if (strcmp((char *)(person + NAME), (char *)(auxPerson + NAME)) >= 0 &&
-        *(void **)(auxPerson + NEXT) == NULL) {
-
-      *(void **)(person + PREVIOUS) = *(void **)(pBuffer + pLast);
-      auxPerson = *(void **)(pBuffer + pLast);
-      *(void **)(pBuffer + pLast) = person;
-      *(void **)(auxPerson + NEXT) = person;
-      return;
-    }
-
+  while (auxPerson != NULL) {
     if (strcmp((char *)(person + NAME), (char *)(auxPerson + NAME)) >= 0) {
-      *(void **)(person + NEXT) = *(void **)(auxPerson + NEXT);
-      *(void **)(person + PREVIOUS) = auxPerson;
-      void *tempPersom = *(void **)(auxPerson + NEXT);
-      *(void **)(tempPersom + PREVIOUS) = person;
-      *(void **)(auxPerson + NEXT) = person;
-      return;
+      if (*(void **)(auxPerson + NEXT) == NULL) {
+        *(void **)(person + PREVIOUS) = *(void **)(pBuffer + pLast);
+        void *auxPerson = *(void **)(pBuffer + pLast);
+        *(void **)(pBuffer + pLast) = person;
+        *(void **)(auxPerson + NEXT) = person;
+
+        return;
+      } else {
+        *(void **)(person + PREVIOUS) = auxPerson;
+        *(void **)(person + NEXT) = *(void **)(auxPerson + NEXT);
+        void *tempPerson = *(void **)(auxPerson + NEXT);
+        *(void **)(tempPerson + PREVIOUS) = person;
+        *(void **)(auxPerson + NEXT) = person;
+
+        return;
+      }
     }
 
     auxPerson = *(void **)(auxPerson + PREVIOUS);
-  } while (auxPerson != NULL);
+  }
 
   *(void **)(person + NEXT) = *(void **)(pBuffer + pFirst);
-  auxPerson = *(void **)(pBuffer + pFirst);
-  *(void **)(auxPerson + PREVIOUS) = person;
   *(void **)(pBuffer + pFirst) = person;
+
   return;
 }
 
@@ -207,12 +206,10 @@ void CLEAR(void *pBuffer) {
   void *person = *(void **)(pBuffer + pFirst);
   void *auxPerson;
 
-  if (person != NULL) {
-    do {
-      auxPerson = *(void **)(person + NEXT);
-      free(person);
-      person = auxPerson;
-    } while (person != NULL);
+  while (person != NULL) {
+    auxPerson = *(void **)(person + NEXT);
+    free(person);
+    person = auxPerson;
   }
 
   free(pBuffer);
